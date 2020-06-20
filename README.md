@@ -1,8 +1,8 @@
-# Ansible role OVS
+# Ansible Role - OpenvSwitch
 
 Génère un fichier d'interface car les commandes ne sont pas bien supportées par PVE.
 
-### host_vars/pve/ovs.yml
+### host_vars/pve/ovs.yml
 ```yaml
 #Sans loopback !!
 interface_list: [eno1,eno2]
@@ -30,4 +30,10 @@ ovs_intport:
     vlan: 10
 ```
 
-Licence GPLv3 - Auteur Pierre Coimbra pour Elukerio
+### License
+
+GPLv3 - Elukerio
+
+### Author Information
+
+Pierre Coimbra

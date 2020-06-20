@@ -1,6 +1,6 @@
 galaxy_info:
   author: Pierre Coimbra
-  description: Generate and deploy self-signed certs
+  description: Manage OpenvSwitch in PVE
   company: Elukerio
 
   license: GPLv3

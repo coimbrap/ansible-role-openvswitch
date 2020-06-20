@@ -4,7 +4,7 @@
     - installation
     - ovs
 
-- import_tasks: interfaces.yml
+- import_tasks: config.yml
   tags:
     - ovs
     - configuration
