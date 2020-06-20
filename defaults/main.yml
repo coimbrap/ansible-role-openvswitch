@@ -1,0 +1,11 @@
+---
+ovs_conf_template: interfaces.j2
+
+ovs_packages:
+  - "openvswitch-switch"
+  - "ifupdown2"
+
+interface_list: []
+ovs_ports: []
+ovs_bridge: []
+ovs_intport: []

@@ -1,0 +1,13 @@
+---
+- import_tasks: install.yml
+  tags:
+    - installation
+    - ovs
+
+- import_tasks: interfaces.yml
+  tags:
+    - ovs
+    - configuration
+
+- debug:
+    msg: "Now check conf and reboot PVE..."

@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Pierre Coimbra
+  description: Generate and deploy self-signed certs
+  company: Elukerio
+
+  license: GPLv3
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: All
+    versions:
+    - all
+
+  galaxy_tags:
+    - ovs
+    - proxmox
+    - interfaces
+
+dependencies: []

@@ -1,0 +1,8 @@
+---
+- name: configuration | update file
+  template:
+    src: "{{ ovs_conf_template }}"
+    dest: /etc/network/interfaces.new
+    owner: root
+    group: root
+    mode: 0644

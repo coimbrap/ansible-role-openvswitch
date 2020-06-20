@@ -1,0 +1,6 @@
+---
+- name: Installing OVS Packages
+  apt:
+    state: present
+    update_cache: yes
+    pkg: "{{ ovs_packages }}"

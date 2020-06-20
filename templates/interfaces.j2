@@ -1,0 +1,12 @@
+auto lo
+iface lo inet loopback
+
+{% set ports = [] %}
+{% for port in ovs_ports | default([]) %}{{ports.append( port.interface )}}{% endfor %}
+{% for interface in interface_list | default([]) %}
+{% if interface not in ports | default(false) %}
+iface {{interface}} inet manual
+
+{% endif %}
+{% endfor %}
+{% include 'ovs.j2' %}

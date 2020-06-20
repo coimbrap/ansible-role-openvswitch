@@ -1,0 +1,60 @@
+{# Port no ip #}
+{% for port in ovs_ports | default([]) %}
+allow-vmbr0 {{port.interface}}
+iface {{port.interface}} inet manual
+	ovs_type OVSPort
+	ovs_bridge {{port.bridge}}
+
+{% endfor %}
+{# Bridge no ip & ipv4 & ipv6 #}
+{% for bridge in ovs_bridge | default([]) %}
+{% set ports = [] %}
+{% for port in ovs_ports | default([]) %}{% if port.bridge == bridge.name %}{{ports.append( port.interface )}}{% endif %}{% endfor %}
+{% for intport in ovs_intport  | default([])%}{% if intport.bridge == bridge.name %}{{ports.append( intport.name )}}{% endif %}{% endfor %}
+allow-ovs {{bridge.name}}
+{% if bridge.ipv4 is not defined and bridge.ipv6 is not defined %}iface {{bridge.name}} inet manual
+{% endif %}
+{% if bridge.ipv4 is defined %}
+iface {{bridge.name}} inet static
+  {% if bridge.ipv4 is defined %}address {{bridge.ipv4}}{% endif %}
+
+  {% if bridge.gw4 is defined %}gateway {{bridge.gw4}}{% endif %}
+
+  ovs_type OVSBridge
+  ovs_ports {{ ports|join(' ') }}
+{% endif %}
+{% if bridge.ipv6 is defined %}
+iface {{bridge.name}} inet6 static
+  {% if bridge.ipv6 is defined %}address {{bridge.ipv6}} {% endif %}
+
+  {% if bridge.gw6 is defined %}gateway {{bridge.gw6}} {% endif %}
+
+{% if bridge.ipv6 is not defined %}
+  ovs_type OVSBridge
+  ovs_ports {{ ports|join(' ') }}
+{% endif %}
+{% endif %}
+
+{% endfor %}
+{# IntPort v4 & v6 #}
+{% for intport in ovs_intport | default([]) %}
+allow-{{intport.bridge}} {{intport.name}}
+{% if intport.ipv4 is defined %}
+iface {{intport.name}} inet static
+	address {{intport.ipv4}}
+	ovs_type OVSIntPort
+	ovs_bridge {{intport.bridge}}
+	ovs_options tag={{intport.vlan}}
+
+{% endif %}
+{% if intport.ipv6 is defined %}
+iface {{intport.name}} inet6 static
+	address {{intport.ipv6}}
+{% if intport.ipv4 is not defined %}
+	ovs_type OVSIntPort
+	ovs_bridge {{intport.bridge}}
+	ovs_options tag={{intport.vlan}}
+{% endif %}
+{% endif %}
+
+{% endfor %}
