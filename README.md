@@ -1,10 +1,10 @@
 # Ansible Role - OpenvSwitch
 
-Génère un fichier d'interface car les commandes ne sont pas bien supportées par PVE.
+Ansible role for OpenvSwitch setup in PVE
 
-### host_vars/pve/ovs.yml
+### Example
 ```yaml
-#Sans loopback !!
+#No loopback
 interface_list: [eno1,eno2]
 
 ovs_ports:
@@ -13,26 +13,26 @@ ovs_ports:
 
 ovs_bridge:
   - name: vmbr0
-    ipv4: '195.14.163.18/24'
-    gw4: '195.14.163.1'
-  - name: vmbr5
-    ipv4: '195.4.163.18/24'
-    gw4: '195.4.163.1'
-    ipv6: 'fd2e:9d2b:16eb::10/64'
-    gw6: 'fd2e:9d2b:16eb::beef'
-  - name: vmbr6
+    ipv4: '195.154.163.18/24'
+    gw4: '195.154.163.1'
+    ports: ['eno1']
+  - name: vmbr1
+    ports: ['dmz','fw']
 
 ovs_intport:
-  - name: opnwan
+  - name: fw
     bridge: vmbr1
-    ipv4: '10.2.0.1/24'
-    ipv6: 'fd2e:9d2b:16eb:30::10/64'
+    ipv4: '10.0.10.1/24'
     vlan: 10
+  - name: dmz
+    bridge: vmbr1
+    ipv4: '10.0.20.1/24'
+    vlan: 20
 ```
 
 ### License
 
-GPLv3 - Elukerio
+GPLv3
 
 ### Author Information
 

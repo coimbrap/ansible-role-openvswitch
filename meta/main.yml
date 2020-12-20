@@ -1,20 +1,17 @@
+---
 galaxy_info:
+  role_name: openvswitch
   author: Pierre Coimbra
-  description: Manage OpenvSwitch in PVE
-  company: Elukerio
-
+  description: Ansible role for OpenvSwitch setup in PVE
   license: GPLv3
-
-  min_ansible_version: 2.4
-
+  min_ansible_version: 2.1
   platforms:
-  - name: All
+  - name: all
     versions:
     - all
-
   galaxy_tags:
+    - system
     - ovs
     - proxmox
     - interfaces
-
 dependencies: []
